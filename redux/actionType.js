@@ -1,0 +1,2 @@
+export const SET_LOGIN_LIST="SET_LOGIN_LIST";
+export const GET_LOGIN_LIST="GET_LOGIN_LIST";
