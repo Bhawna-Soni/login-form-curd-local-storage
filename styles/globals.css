@@ -13,7 +13,7 @@
 /* background-color: gray; */
 border-radius: 10px;
 /* color: #fff; */
-overflow: hidden;
+overflow-x: scroll;
 }
 .login-left-side-container{
   background-color: rgba(0,0,255);

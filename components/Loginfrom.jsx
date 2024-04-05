@@ -50,35 +50,55 @@ export default function Loginfrom() {
       formData.email !== "" &&
       formData.password !== ""
     ) {
-      const id = uuidv4();
-      dispatch(
-        setLoginData({
+      if(!id){
+
+        const id = uuidv4();
+        dispatch(
+          setLoginData({
+            id: id,
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+          })
+        );
+        const previousData =
+          JSON.parse(localStorage.getItem("previousData")) || [];
+        const newData = {
           id: id,
           name: formData.name,
           email: formData.email,
           password: formData.password,
-        })
-      );
-      const previousData =
-        JSON.parse(localStorage.getItem("previousData")) || [];
-      const newData = {
-        id: id,
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      };
-      const updatedData = [...previousData, newData];
-      localStorage.setItem("previousData", JSON.stringify(updatedData));
-      const loginData = JSON.stringify({
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      });
-      localStorage.setItem("loginData", loginData);
+        };
+        const updatedData = [...previousData, newData];
+        localStorage.setItem("previousData", JSON.stringify(updatedData));
+        // const loginData = JSON.stringify({
+        //   name: formData.name,
+        //   email: formData.email,
+        //   password: formData.password,
+        // });
+        // localStorage.setItem("loginData", loginData);
+        router.push("/");
+      }else{
+        const previousData = JSON.parse(localStorage.getItem("previousData")) || [];
+        const updatedData = previousData.map(item => {
+          if (item.id === id) {
+            return {
+              id: id,
+              name: formData.name,
+              email: formData.email,
+              password: formData.password
+            };
+          }
+          return item;
+        });
+        localStorage.setItem("previousData", JSON.stringify(updatedData));
+      }
       router.push("/");
-    } else {
+    }else{
       console.log("Please fill in all fields");
     }
+    
+   
   };
 
   // console.log("previousData",previousData);
